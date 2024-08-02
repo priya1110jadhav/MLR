@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dendrogram Example</title>
+    <!-- Include amCharts 5 library -->
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/hierarchy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <style>
+        #chartdiv {
+            width: 80%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="chartdiv"></div>
+
+<script>
+    // Example data
+    var data = [
+        {"RawMaterialID":"Phenoxyethanol","Supplier":"Merck KGaA","PerKgCost":275.0},
+        {"RawMaterialID":"Phenoxyethanol","Supplier":"Clariant","PerKgCost":350.0},
+        {"RawMaterialID":"Phenoxyethanol","Supplier":"BASF SE","PerKgCost":360.0},
+        {"RawMaterialID":"Phenoxyethanol","Supplier":"Acme-Hardesty Company","PerKgCost":390.0},
+        {"RawMaterialID":"Phenoxyethanol","Supplier":"Chemmax Chemical","PerKgCost":410.0},
+        {"RawMaterialID":"Phenoxyethanol","Supplier":"Alpha Chemicals Pvt Ltd","PerKgCost":425.0},
+        {"RawMaterialID":"Phenoxyethanol","Supplier":"Explicit Chemicals","PerKgCost":440.0},
+        {"RawMaterialID":"Sodium lauryl sulfate","Supplier":"Merck KGaA","PerKgCost":570.0},
+        {"RawMaterialID":"Sodium lauryl sulfate","Supplier":"Clariant","PerKgCost":600.0},
+        {"RawMaterialID":"Sodium lauryl sulfate","Supplier":"Alpha Chemicals Pvt Ltd","PerKgCost":610.0},
+        {"RawMaterialID":"Sodium lauryl sulfate","Supplier":"BASF SE","PerKgCost":679.0},
+        {"RawMaterialID":"Sodium lauryl sulfate","Supplier":"Acme-Hardesty Company","PerKgCost":680.0},
+        {"RawMaterialID":"Sodium lauryl sulfate","Supplier":"Chemmax Chemical","PerKgCost":750.0},
+        {"RawMaterialID":"Sodium lauryl sulfate","Supplier":"Explicit Chemicals","PerKgCost":890.0},
+    ];
+
+    function createHierarchy(data) {
+        let result = [];
+
+        function addNode(path, obj, value) {
+            if (path.length === 0) return;
+
+            let name = path[0];
+            let child = obj.children && obj.children.find(n => n.name === name);
+            if (!child) {
+                child = { name: name, children: [] };
+                if (path.length === 1) {
+                    child.data = value;
+                }
+                obj.children.push(child);
+            }
+            addNode(path.slice(1), child, value);
+        }
+
+        data.forEach(item => {
+            let keys = Object.keys(item);
+            let path = keys.map(key => item[key]);
+            addNode(path, { children: result }, item);
+        });
+
+        return result;
+    }
+
+    var groupedData = createHierarchy(data);
+
+    am5.ready(function() {
+        // Create root element
+        var root = am5.Root.new("chartdiv");
+
+        // Set themes
+        root.setThemes([
+            am5themes_Animated.new(root)
+        ]);
+
+        // Create a tree
+        var series = root.container.children.push(
+            am5hierarchy.Tree.new(root, {
+                singleBranchOnly: false,
+                downDepth: 2,
+                initialDepth: 1,
+                valueField: "value",
+                categoryField: "name",
+                childDataField: "children",
+                nodePaddingOuter: 30, // Reduce outer padding
+                nodePaddingInner: 30  // Reduce inner padding
+            })
+        );
+
+        series.data.setAll(groupedData);
+
+        // Increase the node size
+        series.nodes.template.setAll({
+            tooltipText: "{name}",
+        });
+
+        // Set circle template for nodes
+        series.circles.template.setAll({
+            radius: 30 // Adjust node radius
+        });
+
+        // Adjust the label settings for better readability
+        series.labels.template.setAll({
+            fontSize: 14,
+            text: "{name}",
+            fill: am5.color(0x000000),
+            clipPadding: 20,
+            inside: true
+        });
+
+        // Reduce padding around the chart
+        root.container.setAll({
+            paddingTop: 0,
+            paddingBottom: 0,
+            paddingLeft: 0,
+            paddingRight: 0
+        });
+
+        // Make nodes collapse on click
+        series.nodes.template.events.on("click", function (event) {
+            var dataItem = event.target.dataItem;
+            if (dataItem.isActive()) {
+                dataItem.collapse();
+            } else {
+                dataItem.expand();
+            }
+        });
+    }); // end am5.ready()
+</script>
+
+</body>
+</html>
