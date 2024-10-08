@@ -1,0 +1,143 @@
+i need to create a SustainablePackagingCards.tsx Filein this i need to write a code for frontend .
+use here icons from @mui/material.
+also we need to maintain separate .scss file to save our css stylesheet 
+here please analyze the provided image and we have to create a component for displaying following details . i will explain what i want in my component 
+Acceptance criteria is as following:
+1."Which area should I focus on?" text should be displayed and a Bulb icon at the staring of the text
+2."Explore each tab to dive deeper into your data and uncover valuable insights to drive informed decisions" text message should be displayed
+3. Total Score, PCR Content, Material Efficiency, Recycle Ready, Recyclability Disruptors Tile should be displayed
+4. Total Score Tile should be displayed by default.
+
+first show gray color container as background in figma they mentioned as 
+width: Fixed (1,359px)px;
+height: Hug (437px)px;
+padding: 16px 0px 0px 0px;
+gap: 24px;
+border-radius: 32px 0px 0px 0px;
+opacity: 0px;
+background: #F8F8F8;
+
+Then if you see the image it showing hint icon design for hint icon as following also used import result_hint_icon from "../assets/images/result_hint_icon.png";
+
+width: 31px;
+height: 31px;
+gap: 0px;
+opacity: 0px; 
+after that the text apper on right side of hint icon as 'Which area should I focus on?'
+the css maintion in figma as 
+//styleName: Desktop/Headline/Small;
+font-family: Kenvue Sans;
+font-size: 23.04px;
+font-weight: 700;
+line-height: 27.65px;
+text-align: left;
+fontColor: #2B2B2B;
+after that the 'Explore each tab to dive deeper into your data and uncover valuable insights to drive informed decisions.' is displayed in below line after hint icon and text
+its css in figma as :
+//styleName: Desktop/Body Small/Regular;
+font-family: Kenvue Sans;
+font-size: 13.33px;
+font-weight: 400;
+line-height: 19.99px;
+text-align: left;
+fontColor: #2B2B2B;
+if you see the given picture then u are able to see the 5 cards dispalyed on the layout of width: Hug (1,327px)px;
+height: Hug (278px)px;
+gap: 24px;
+opacity: 0px;
+1) First card is Total Score
+css for it :
+width: Fixed (241.4px)px;
+height: Fixed (278px)px;
+padding: 16px 20px 16px 20px;
+gap: 8px;
+border-radius: 32px 0px 0px 0px;
+border: 3px 0px 0px 0px;
+opacity: 0px;
+background: #FFFFFF;
+border: 3px solid #00B097
+
+this Total Score is selected as default . 
+after that 1 divider as verically is present after total score tab and rest 4 tabs , its layout as following
+width: 278px;
+height: 0px;
+gap: 0px;
+border: 1px 0px 0px 0px;
+opacity: 0px;
+angle: -90 deg;
+border: 1px solid #B4B4B4
+2)  2nd tab as 'PCR Content'
+ its layout style in figma as 
+ width: Fixed (241.4px)px;
+height: Fill (278px)px;
+padding: 16px 20px 16px 20px;
+gap: 8px;
+border-radius: 32px 0px 0px 0px;
+border: 1px 0px 0px 0px;
+opacity: 0px;
+background: #FFFFFF;
+border: 1px solid #D2D2D2
+
+3) 3rd tab is 'Material Efficiency'
+css in figma as 
+width: Fixed (241.4px)px;
+height: Fill (278px)px;
+padding: 16px 20px 16px 20px;
+gap: 8px;
+border-radius: 32px 0px 0px 0px;
+border: 1px 0px 0px 0px;
+opacity: 0px;
+background: #FFFFFF;
+border: 1px solid #D2D2D2
+ 4) 4th tab is 'Recycle Ready'
+ same css as 3rd Tab.
+ 5) 5th tab is 'Recyclability Disruptors'
+ same css as 3rd Tab.
+
+
+ now data for all tabs is first create a one array/list /dictonary in this data in tabs showing is stored and call that dictonary so in first tab data about Total Score is displayed then all tabs displayed as data provided
+ TabsInfo as following
+ 1) Total Score:
+ heading:'Total Score',
+ value : 30,
+ seeDetailsLink: "See Deatail"
+
+2)PCR Content
+heading:'PCR Content',
+value: +35%,
+Baseline Product: 50%,
+My Product: 85%,
+seeDetailsLink: "See Deatail"
+3)Material Efficiency
+heading :'Material Efficiency',
+value: -3%,
+Baseline Product: 0.59 g per dose
+My Product: 0.59 g per dose
+ seeDetailsLink: "See Deatail"
+3)Recycle Ready
+heading:'Recycle Ready',
+value: +35%,
+Baseline Product: 50%,
+My Product: 85%
+3)Material Efficiency
+heading :'Material Efficiency',
+value: -3%,
+Baseline Product: 0.59 g per dose
+My Product: 0.59 g per dose
+seeDetailsLink: "See Deatail"
+4)Recyclability Disruptors
+heading: 'Recyclability Disruptors',
+value: 'Pass',
+Baseline Product: 'pass'
+My Product: 'pass'
+seeDetailsLink: "See Deatail"
+
+
+after all tab display then again 'Please note that the scores displayed cover all packaging received by the Consumer i.e. Primary and Secondary packaging.'
+
+after value is displayed near value display one icon. import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'; is there make color as background: #72C451;
+
+
+when you dispklay tab 
+first show heading, in second row show value with ArrowCircleUpIcon icon . when value is positive show ArrowCircleUpIcon as upside and if value is negative show ArrowCircleUpIcon as upside down . rotate it 
+after that in single row make flex and make two columns as Baseline Product below its show its value after that in second column show my product . below its show its value . and in next row shoe see deatils when i click on it it will navigate when i give navigate link to it . ok . understood ? all css is save in sustainablePackagingcard.sss file
