@@ -1,0 +1,35 @@
+  return (
+
+    <label>
+    <span className="visually-hidden">Flip card</span>
+    <input type="checkbox" id="flipcardCheckbox" name="flipcardCheckbox" />
+    <div className="flip-card">
+      <div className="flip-card-inner">
+        <div className="flip-card-front">
+          <div
+            id={`chartdiv_${props.chartDivIndex}`}
+            className="pieChartdiv"
+            style={{
+              border:
+                props.selectedpiechart === "selected"
+                  ? "2px solid #000"
+                  : "1px solid #B4B4B4",
+            }}
+          ></div>
+        </div>
+        <div
+          className="flip-card-back"
+          style={{
+            border:
+              props.selectedpiechart === "selected"
+                ? "2px solid #000"
+                : "1px solid #B4B4B4",
+          }}
+        >
+          <props.flipcard_description />
+        </div>
+      </div>
+    </div>
+  </label>
+  
+  );
